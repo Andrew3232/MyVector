@@ -27,7 +27,6 @@ public:
 	//methods
 	int GetVectorSize();
 	void SetVectorSize(int);
-
 	
 	int addElement(T);
 	int delElement(int);
@@ -124,10 +123,41 @@ public:
 		for (int i = 0; i < v1.VectorSize; i++)
 			v3.Data[i] = b * v1.Data[i];
 		return v3;
+	}	
+
+	//operators = and ==  
+	/*void operator=(MyVector<T> copy) {
+		if (this == &copy)
+			return;
+		delete[]Data;
+		Data = new T[VectorSize];
+		VectorSize = copy.GetVectorSize();
+		for (int i = 0; i < VectorSize; i++)
+			Data[i] = copy.Data[i];
+		
+	}*/
+
+	MyVector& operator=(MyVector<T> copy) {
+		if (this != &copy) {
+			delete[] Data;
+			T* tmp = new T[copy.GetVectorSize()];
+			for (int i = 0; i < copy.GetVectorSize(); i++)
+				tmp[i] = copy.Data[i];
+			Data = tmp;
+			VectorSize = copy.GetVectorSize();
+		}
+		return *this;
 	}
-	
-	//void operator=(MyVector<T>&);
-	//void operator==(MyVector<T>&);
+
+	bool operator==(MyVector<T> &like) {
+		if (this != &copy) {
+			delete[] Data;
+			Data = new T[VectorSize];
+			VectorSize = like.GetVectorSize();
+
+			/////????
+		}
+	}
 
 	//cin & cout
 	friend ostream& operator<<(ostream& stream, MyVector<T>& V) {
@@ -154,7 +184,7 @@ public:
 	}
 
 	//destructor
-	virtual ~MyVector<T>() { /*cout << "\nDestroy " << Data; */ delete[]Data; VectorSize = 0; };
+	virtual ~MyVector<T>() { /*cout << "\nDestroy " << Data; */ delete[] Data; VectorSize = 0; };
 };
 
 template <typename T>

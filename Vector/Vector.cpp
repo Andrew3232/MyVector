@@ -20,9 +20,10 @@ int main()
 	cout << v1 * v2 << endl;
 	MyVector<double> v4(v1 / 3);
 	cout << v4 << endl;
-	MyVector<double> v5(v1 - 2);
+	MyVector<double> v5(v1 - 2), v6;
 	cout << v5 << endl;
-	v5.delElement(3);	
-	cout << v5 << endl;	
-	
+	v4.delElement(3);	
+	cout << v4 << endl;	
+	v6=v1+v2;
+	cout << v6 << endl;
 }
