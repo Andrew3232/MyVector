@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include "MyError.h"
 
 using namespace std;
 
@@ -126,7 +127,7 @@ public:
 	}	
 
 	//operators = and ==  
-	/*void operator=(MyVector<T> copy) {
+	void operator=(MyVector<T> copy) {
 		if (this == &copy)
 			return;
 		delete[]Data;
@@ -135,9 +136,9 @@ public:
 		for (int i = 0; i < VectorSize; i++)
 			Data[i] = copy.Data[i];
 		
-	}*/
+	}
 
-	MyVector& operator=(MyVector<T> copy) {
+	/*MyVector& operator=(MyVector<T> copy) {
 		if (this != &copy) {
 			delete[] Data;
 			T* tmp = new T[copy.GetVectorSize()];
@@ -147,16 +148,15 @@ public:
 			VectorSize = copy.GetVectorSize();
 		}
 		return *this;
-	}
+	}*/
 
 	bool operator==(MyVector<T> &like) {
-		if (this != &copy) {
-			delete[] Data;
-			Data = new T[VectorSize];
-			VectorSize = like.GetVectorSize();
-
-			/////????
-		}
+		if (VectorSize != like.GetVectorSize()) 
+			return false;
+		for (int i = 0; i < like.GetVectorSize(); i++)
+			if (Data[i] != like.Data[i])
+				return false;
+		return true;
 	}
 
 	//cin & cout

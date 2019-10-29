@@ -25,5 +25,6 @@ int main()
 	v4.delElement(3);	
 	cout << v4 << endl;	
 	v6=v1+v2;
+	cout << (v1 == v6) << endl;
 	cout << v6 << endl;
 }
