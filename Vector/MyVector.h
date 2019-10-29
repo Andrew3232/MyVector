@@ -35,30 +35,30 @@ public:
 	//operators
 	// vector with vector
 	friend MyVector operator+(MyVector<T>& v1, MyVector<T>& v2) {
-		//if (V.VectorSize == 0)
-			//throw new CError("VectorSize = 0", 1, "operator+ ", "MyVector");
-		//if (v1.VectorSize != v2.VectorSize)
-			//throw new CError("VectorSize1 != VectorSize2", 2, "operator+ ", "CVector");
+		if (v1.VectorSize == 0 || v2.VectorSize == 0)
+			throw new MyError("VectorSize = 0", 1, "operator+ ", "MyVector");
+		if (v1.VectorSize != v2.VectorSize)
+			throw new MyError("VectorSize1 != VectorSize2", 2, "operator+ ", "MyVector");
 		MyVector<T> v3(v1.VectorSize);
 		for (int i = 0; i < v1.VectorSize; i++)
 			v3.Data[i] = v1.Data[i] + v2.Data[i];
 		return v3;
 	}
 	friend MyVector operator-(MyVector<T>& v1, MyVector<T>& v2) {
-		//if (V.VectorSize == 0)
-			//throw new CError("VectorSize = 0", 1, "operator+ ", "MyVector");
-		//if (v1.VectorSize != v2.VectorSize)
-			//throw new CError("VectorSize1 != VectorSize2", 2, "operator+ ", "CVector");
+		if (v1.VectorSize == 0 || v2.VectorSize == 0)
+			throw new MyError("VectorSize = 0", 1, "operator- ", "MyVector");
+		if (v1.VectorSize != v2.VectorSize)
+			throw new MyError("VectorSize1 != VectorSize2", 2, "operator- ", "MyVector");
 		MyVector<T> v3(v1.GetVectorSize());
 		for (int i = 0; i < v1.VectorSize; i++)
 			v3.Data[i] = v1.Data[i] - v2.Data[i];
 		return v3;
 	}
 	friend T operator*(MyVector<T>& v1, MyVector<T>& v2) { //scalar
-		//if (V.VectorSize == 0)
-			//throw new CError("VectorSize = 0", 1, "operator+ ", "MyVector");
-		//if (v1.VectorSize != v2.VectorSize)
-			//throw new CError("VectorSize1 != VectorSize2", 2, "operator+ ", "CVector");
+		if (v1.VectorSize == 0 || v2.VectorSize == 0)
+			throw new MyError("VectorSize = 0", 1, "operator* ", "MyVector");
+		if (v1.VectorSize != v2.VectorSize)
+			throw new MyError("VectorSize1 != VectorSize2", 2, "operator* ", "MyVector");
 		T res = 0;
 		for (int i = 0; i < v1.VectorSize; i++)
 			res += (v1.Data[i] * v2.Data[i]);
@@ -66,38 +66,32 @@ public:
 	}
 	//other
 	friend MyVector operator/(MyVector<T>& v1, T b) {
-		//if (V.VectorSize == 0)
-			//throw new CError("VectorSize = 0", 1, "operator+ ", "MyVector");
-		//if (v1.VectorSize != v2.VectorSize)
-			//throw new CError("VectorSize1 != VectorSize2", 2, "operator+ ", "CVector");
+		if (v1.VectorSize == 0)
+			throw new MyError("VectorSize = 0", 1, "operator/ ", "MyVector");
 		MyVector<T> v3(v1.GetVectorSize());
 		for (int i = 0; i < v1.VectorSize; i++)
 			v3.Data[i] = v1.Data[i] / b;
 		return v3;
 	}
 	friend MyVector operator+(MyVector<T>& v1, T b) {	//add element b
-		//if (V.VectorSize == 0)
-			//throw new CError("VectorSize = 0", 1, "operator+ ", "MyVector");
-		//if (v1.VectorSize != v2.VectorSize)
-			//throw new CError("VectorSize1 != VectorSize2", 2, "operator+ ", "CVector");
+		if (v1.VectorSize == 0)
+			throw new MyError("VectorSize = 0", 1, "operator+ ", "MyVector");
 		MyVector<T> v3(v1.GetVectorSize());
 		for (int i = 0; i < v1.VectorSize; i++)
 			v3.Data[i] = v1.Data[i] + b;
 		return v3;
 	}
 	friend MyVector operator+(T b, MyVector<T>& v1) {	//add element b
-		//if (V.VectorSize == 0)
-			//throw new CError("VectorSize = 0", 1, "operator+ ", "MyVector");
-		//if (v1.VectorSize != v2.VectorSize)
-			//throw new CError("VectorSize1 != VectorSize2", 2, "operator+ ", "CVector");
+		if (v1.VectorSize == 0)
+			throw new MyError("VectorSize = 0", 1, "operator+ ", "MyVector");
 		MyVector<T> v3(v1.GetVectorSize());
 		for (int i = 0; i < v1.VectorSize; i++)
 			v3.Data[i] = v1.Data[i] + b;
 		return v3;
 	}
 	friend MyVector operator-(MyVector<T>& v1, int b) {  //delete element b		
-		//if (v1.VectorSize == 0)
-			//throw new CError("VectorSize = 0", 1, "operator- ", "MyVector");		
+		if (v1.VectorSize == 0)
+			throw new MyError("VectorSize = 0", 1, "operator- ", "MyVector");
 		MyVector<T> v2(v1.GetVectorSize() -1);
 		for (int i = 0; i < b - 1; i++)
 			v2.Data[i] = v1.Data[i];		
@@ -106,26 +100,21 @@ public:
 		return v2;
 	}
 	friend MyVector operator*(MyVector<T>& v1, T b) {	//multiply all elemets in b
-		//if (V.VectorSize == 0)
-			//throw new CError("VectorSize = 0", 1, "operator* ", "MyVector");
-		//if (v1.VectorSize != v2.VectorSize)
-			//throw new CError("VectorSize1 != VectorSize2", 2, "operator+ ", "CVector");
+		if (v1.VectorSize == 0)
+			throw new MyError("VectorSize = 0", 1, "operator* ", "MyVector");
 		MyVector<T> v3(v1.GetVectorSize());
 		for (int i = 0; i < v1.VectorSize; i++)
 			v3.Data[i] = v1.Data[i] * b;
 		return v3;
 	}
 	friend MyVector operator*(T b, MyVector<T>& v1) {	//multiply all elemets in b
-		//if (V.VectorSize == 0)
-			//throw new CError("VectorSize = 0", 1, "operator+ ", "MyVector");
-		//if (v1.VectorSize != v2.VectorSize)
-			//throw new CError("VectorSize1 != VectorSize2", 2, "operator+ ", "CVector");
+		if (v1.VectorSize == 0)
+			throw new MyError("VectorSize = 0", 1, "operator* ", "MyVector");
 		MyVector<T> v3(v1.GetVectorSize());
 		for (int i = 0; i < v1.VectorSize; i++)
 			v3.Data[i] = b * v1.Data[i];
 		return v3;
 	}	
-
 	//operators = and ==  
 	void operator=(MyVector<T> copy) {
 		if (this == &copy)
@@ -134,8 +123,7 @@ public:
 		Data = new T[VectorSize];
 		VectorSize = copy.GetVectorSize();
 		for (int i = 0; i < VectorSize; i++)
-			Data[i] = copy.Data[i];
-		
+			Data[i] = copy.Data[i];		
 	}
 
 	/*MyVector& operator=(MyVector<T> copy) {
@@ -161,8 +149,8 @@ public:
 
 	//cin & cout
 	friend ostream& operator<<(ostream& stream, MyVector<T>& V) {
-		//if (V.VectorSize == 0)
-			//throw new CError("VectorSize = 0", 1, "operator<< ", "MyVector");
+		if (V.VectorSize == 0)
+			throw new MyError("VectorSize = 0", 1, "operator<< ", "MyVector");
 		stream << "\nVector[" << V.VectorSize << "]" << " = (";
 		for (int i = 0; i < V.VectorSize; i++)
 			stream << V.Data[i] << " ";
@@ -171,8 +159,8 @@ public:
 	}
 
 	friend istream& operator>>(istream& stream, MyVector<T>& V) {
-		//if (V.VectorSize == 0)
-			//throw new CError("VectorSize = 0", 1, "operator>> ", "MyVector");
+		if (V.VectorSize == 0)
+			throw new MyError("VectorSize = 0", 1, "operator>> ", "MyVector");
 		cout << "Enter vector:" << endl;
 		for (int i = 0; i < V.VectorSize; i++)
 		{
